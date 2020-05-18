@@ -115,11 +115,18 @@ def drawTDistProbabilityDens(ax):
 		
 		# print(binEdge, ...)
 		handle,=ax.plot(binEdge[:-1],hist,linStyles[i])
+
 		handles.append(handle)
+
+	#当t分布的自由度趋近于无穷时，t分布近似于正太分布，这里用正态分布的概率密度函数来做个基准验证
+	nSamples=generateNormalDistSample(0, 1,100000)
+	histN,binEdgeN=np.histogram(nSamples,np.linspace(-5,5, 50),density=True)
+	handleN=ax.plot(binEdgeN[:-1],histN,'m-',linewidth=3,alpha=0.5)
+	handles.append(handleN)
 
 	ax.set_xlim(-5,5)
 	ax.set_title('t distribution samples',fontstyle='italic')
-	ax.legend(handles,labels=['n=1','n=3','n=7',r'n$\to\infty$'],frameon=False)
+	ax.legend(handles,labels=['n=1','n=3','n=7',r'n$\to\infty$','Normal Distribution'],frameon=False,bbox_to_anchor=(0.6,0.6),labelspacing=0)
 
 def drawFDistProbDens(ax):
 	freedomNumS=[3,10,11]
@@ -129,7 +136,7 @@ def drawFDistProbDens(ax):
 	for i in range(3):
 		samples=generateFDistSampel(freedomNumS[i], freedomDens[i],100000)
 		hist,binEdge=np.histogram(samples,np.linspace(0, 6,50),density=True)
-		handle,=ax.plot(binEdge[0:-1],hist,linStyles[i],label='n1='+str(freedomNumS[i])+', n2='+str(freedomDens[i]))
+		handle,=ax.plot(binEdge[0:-1],hist,linStyles[i],label=r'$n_1$='+str(freedomNumS[i])+', $n_2$='+str(freedomDens[i]))
 
 		handles.append(handle)
 
