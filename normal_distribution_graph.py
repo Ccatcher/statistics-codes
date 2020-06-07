@@ -160,7 +160,11 @@ def drawSomeDistributionCurves():
 	drawFDistProbDens(fDistSubplt)
 
 	# drawBoxChartOfNormalDist(chiSquareDistSubplot)
-
+	normalDistSubplot.grid(True)
+	chiSquareDistSubplot.grid(True)
+	tDistSubplot.grid(True)
+	fDistSubplt.grid(True)
+	
 	plt.show()
 
 if __name__=='__main__':
